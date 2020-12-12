@@ -130,7 +130,9 @@ class LapackConan(ConanFile):
 
     def package_info(self):
         # the order is important for static builds
-        self.cpp_info.libs = ["lapacke", "lapack", "blas", "cblas", "gfortran", "quadmath"]
+        self.cpp_info.libs = ["lapacke", "lapack", "blas", "cblas", "gfortran"]
+        if self.settings.arch == 'x86' or self.settings.arch == 'x86_64':
+            self.cpp_info.libs.append("quadmath")
         if self.settings.os == "Linux":
             self.cpp_info.libs.append("m")
         if self.options.visual_studio and self.options.shared:
